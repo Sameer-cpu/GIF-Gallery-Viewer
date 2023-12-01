@@ -39,8 +39,6 @@ export const Home = () => {
         <SearchInput
           placeholder="Search"
           onTextChange={(e: string) => {
-            console.log({e});
-
             setSearch(e);
           }}
           onSearch={() => {
