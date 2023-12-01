@@ -7,7 +7,6 @@ export const SearchInput: React.FC<any> = ({
   onTextChange,
   labelStyles,
   aligngnment = 'left',
-  errorText,
   value,
   keyboardReturnType = 'next',
   multiline = false,
@@ -34,8 +33,8 @@ export const SearchInput: React.FC<any> = ({
           returnKeyType={keyboardReturnType}
           multiline={multiline}
         />
-        <TouchableOpacity onPress={onSearch}>
-          <Text>Search</Text>
+        <TouchableOpacity onPress={onSearch} style={styles.searchBtn}>
+          <Text style={{color: 'white'}}>Search</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -62,8 +61,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 30,
     height: 45,
-    paddingHorizontal: 10,
+    paddingLeft: 10,
     borderWidth: 1,
     borderColor: '#848484',
+  },
+  searchBtn: {
+    justifyContent: 'center',
+    backgroundColor: 'gray',
+    paddingHorizontal: 6,
+    borderTopEndRadius: 30,
+    borderBottomEndRadius: 30,
   },
 });

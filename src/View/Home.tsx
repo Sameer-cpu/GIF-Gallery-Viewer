@@ -6,26 +6,32 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {SearchInput} from './Components/SearchInput';
 import {Card} from './Components/Card';
+import {useDispatch, useSelector} from 'react-redux';
+import {showHomeGifs} from '../redux/Home/homeActions';
+import {homeSelectors} from '../redux/Home/homeSelectors';
 
 export const Home = () => {
+  const dispatch = useDispatch();
   const [getGifsList, setGifsList] = useState([]);
+  const gifList = useSelector(homeSelectors.showGifList);
   const [search, setSearch] = useState('flower');
   const fetchGIFs = async () => {
     try {
       const resp = await axios.get(
         `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=YIgFoVU5Y8vghmhTR4LmyhZffICVJHA7`,
       );
-      setGifsList(resp.data.data);
-      console.log(resp);
+      dispatch(showHomeGifs(resp.data.data));
     } catch (error) {
       console.log({error});
     }
   };
-  console.log({getGifsList});
+  useEffect(() => {
+    fetchGIFs();
+  }, []);
 
   return (
     <SafeAreaView>
@@ -41,14 +47,11 @@ export const Home = () => {
             fetchGIFs();
           }}
         />
-        <TouchableOpacity onPress={fetchGIFs}>
-          <Text>Fetch Detals </Text>
-        </TouchableOpacity>
         <FlatList
           showsVerticalScrollIndicator={false}
           numColumns={2}
           columnWrapperStyle={styles.cardBox}
-          data={getGifsList}
+          data={gifList}
           renderItem={({item, index}: any) => {
             return (
               <Card

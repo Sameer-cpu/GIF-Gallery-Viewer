@@ -34,13 +34,8 @@ const styles = StyleSheet.create({
   },
   img: {
     height: height / 4,
-    width: width / 2.3,
     borderTopEndRadius: 5,
     borderTopRightRadius: 5,
-  },
-  loader: {
-    position: 'absolute',
-    zIndex: 1,
   },
   detailBox: {
     paddingHorizontal: 10,
